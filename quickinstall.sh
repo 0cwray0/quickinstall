@@ -1,5 +1,6 @@
 #!/bin/bash
 # Copyright 2016, jgamblin, released under the MIT License
+# Modified 2019, 0cwray0
 # See https://github.com/jgamblin/quickinstall/blob/master/LICENSE for the
 # complete license text
 # Source code at https://github.com/jgamblin/quickinstall
@@ -8,6 +9,10 @@
 echo -e "\nRunning a package upgrade...\n"
 apt-get -qq update && apt-get -qq dist-upgrade
 
+# Remove guest account from new Ubuntu install
+echo -e "\nRemoving the guest account...\n"
+sudo touch /etc/lightdm/lightdm.conf
+echo -e "[SeatDefaults]\nallow-guest=false" | sudo tee -a /etc/lightdm/lightdm.conf
 
 #Install stuff I use all the time
 echo -e "\nInstalling default packages...\n"
